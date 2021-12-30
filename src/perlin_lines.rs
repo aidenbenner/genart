@@ -1,3 +1,4 @@
+/*
 extern crate image;
 extern crate ini;
 extern crate cairo;
@@ -267,32 +268,10 @@ fn main() {
     let lines = 230;
     let dist = fheight / lines as f64;
     let seed = rng.next_u32();
-    let per = per.set_seed(seed);
-
-    let grid_size = 60.;
-    context.set_source_rgb(0., 0., 0.);
-    for x in 0..width / grid_size as i32 {
-        for y in 0..height / grid_size as i32 {
-            // let color = colors[rng.gen_range(0, colors.len())];
-            // context.set_source_rgb(color.0 / 255., color.1 / 255., color.2 / 255.);
-            let (x,y) = (grid_size * x as f64, grid_size * y as f64);
-            // context.move_to(x, y);
-            // context.line_to(x + grid_size, y);
-            // context.line_to(x + grid_size, y + grid_size);
-            // context.line_to(x, y + grid_size);
-            // context.line_to(x, y);
-
-            let mid = grid_size / 2.;
-            let rad = (mid * per.get([x * 0.001, y * 0.001])).min(mid);
-            context.stroke();
-            context.arc(x + mid, y + mid, rad, 0., 180.);
-            context.fill();
-            context.stroke();
-        }
-    }
-
-    /*
+    let seed = rng.next_u32();
     for z in 1..lines {
+        let color = colors[rng.gen_range(0, colors.len())];
+        context.set_source_rgb(color.0 / 255., color.1 / 255., color.2 / 255.);
         println!("setting seed: {}", seed);
         let per = per.set_seed(seed);
 
@@ -311,19 +290,19 @@ fn main() {
             context.line_to(x as f64, y);
             context.stroke();
         }
-    }*/
+    }
 
     let mut output = File::create("output.png").expect("");
     surface.write_to_png(&mut output)
-    .expect("file write fail");
+        .expect("file write fail");
 
     let mut file = File::create(format!("prints/{}_{}.png", title, version))
         .expect("file create fail");
     surface.write_to_png(&mut file)
-    .expect("file write fail");
+        .expect("file write fail");
 
     let mut conf = File::create("info.cfg").unwrap();
     let conf_str = format!("{}\n{}", title, version + 1);
     println!("{}", conf_str);
     conf.write_all(conf_str.as_bytes());
-}
+}*/
